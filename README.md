@@ -1,7 +1,60 @@
 # jmeter-analysisReport-maven-plugin
+# the plugin only for parser jmeter results and generate html reporters
 
-while using the plugin in a maven project,please set as follows:
+while using the plugin in a maven project,please set the pom.xml as follows:
 
+<!--first:generate the maven buildtime-->
+<!--
+			<plugin>
+			
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<phase>test</phase>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+
+					</execution>
+				</executions>
+				<configuration>
+					<name>timeStamp</name>
+					<pattern>yyyyMMddHHmmss</pattern>
+					<timeZone>GMT+8</timeZone>
+				</configuration>
+			</plugin>-->
+			
+<!--second:run jmeter scripts-->			
+ <!--
+     			<plugin>
+				<configuration>
+					<testFilesDirectory>./src/test/jmeter/</testFilesDirectory>
+					<testFilesIncluded>
+						<jMeterTestFile>*.jmx</jMeterTestFile>
+					</testFilesIncluded>
+					<suppressJMeterOutput>true</suppressJMeterOutput>
+					<testResultsTimestamp>false</testResultsTimestamp>
+					
+				</configuration>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>1.9.0</version>
+				<executions>
+					<execution>
+						<id>jmeter-run</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+
+
+<!--third:parser jmeter results and generate html reporters-->
 			 <plugin>
 				<groupId>com.yang</groupId>
 				<artifactId>jmeter-analysisReport-maven-plugin</artifactId>
@@ -14,17 +67,17 @@ while using the plugin in a maven project,please set as follows:
 						<phase>verify</phase>
 						<configuration>
             
-              <!--projectName-->
+                                                         <!--projectName-->
 							<projectName>myProject</projectName>
-              <!--projectHome-->
+                                                         <!--projectHome-->
 							<projectHome>${basedir}</projectHome>
-              <!--buildTime-->
+                                                         <!--buildTime-->
 							<buildTime>${timeStamp}</buildTime>
-              <!--jmeter result files path-->
+                                                         <!--jmeter result files path-->
 							<jmeterResultPath>${project.build.directory}/jmeter/results/</jmeterResultPath>
-              <!--where the html reporters saved-->
+                                                         <!--where the html reporters saved-->
 							<htmlReportOutputPath>${project.build.directory}/jmeter/reports/</htmlReportOutputPath>
-              <!--ignored sampler names-->
+                                                         <!--ignored sampler names-->
 							<ignoreSamplerNames>
 								<ignoreSamplerName>sample</ignoreSamplerName>
 							</ignoreSamplerNames>
@@ -36,13 +89,13 @@ while using the plugin in a maven project,please set as follows:
 								<user>userName</user>
 								<password>password</password>
 							</jdbc>
-              <!--the detail reporters contains how much history builds-->
+                                                         <!--the detail reporters contains how much history builds-->
 							<fetchLimit>10</fetchLimit><!-- 历史记录中列举多少条记录 -->
-              <!--the runtime charts samplers interval time-->
+                                                         <!--the runtime charts samplers interval time-->
 							<chartPointInterval>10</chartPointInterval><!-- 运行时结果中每隔多少秒采样一次 -->
 							<dateFormat>yyyyMMddHHmmss</dateFormat>
 							<charEncoder>utf-8</charEncoder>
-              <!--delete the jtl files after parser-->
+                                                         <!--delete the jtl files after parser-->
 							<removeJTLAfterHandler>false</removeJTLAfterHandler>
 							<configurationCharts>
 								<width>950</width>
