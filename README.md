@@ -68,17 +68,17 @@ while using the plugin in a maven project,please set the pom.xml like this:
 						<phase>verify</phase>
 						<configuration>
             
-                                                         <!--projectName-->
+                            <!--projectName-->
 							<projectName>myProject</projectName>
-                                                         <!--projectHome-->
+                            <!--projectHome-->
 							<projectHome>${basedir}</projectHome>
-                                                         <!--buildTime-->
+                            <!--buildTime-->
 							<buildTime>${timeStamp}</buildTime>
-                                                         <!--jmeter result files path-->
+                            <!--jmeter result files path-->
 							<jmeterResultPath>${project.build.directory}/jmeter/results/</jmeterResultPath>
-                                                         <!--where the html reporters saved-->
+                            <!--where the html reporters saved-->
 							<htmlReportOutputPath>${project.build.directory}/jmeter/reports/</htmlReportOutputPath>
-                                                         <!--ignored sampler names-->
+                            <!--ignored sampler names-->
 							<ignoreSamplerNames>
 								<ignoreSamplerName>sample</ignoreSamplerName>
 							</ignoreSamplerNames>
@@ -90,13 +90,13 @@ while using the plugin in a maven project,please set the pom.xml like this:
 								<user>userName</user>
 								<password>password</password>
 							</jdbc>
-                                                         <!--the detail reporters contains how much history builds-->
+                             <!--the detail reporters contains how much history builds-->
 							<fetchLimit>10</fetchLimit><!-- 历史记录中列举多少条记录 -->
-                                                         <!--the runtime charts samplers interval time-->
+                             <!--the runtime charts samplers interval time-->
 							<chartPointInterval>10</chartPointInterval><!-- 运行时结果中每隔多少秒采样一次 -->
 							<dateFormat>yyyyMMddHHmmss</dateFormat>
 							<charEncoder>utf-8</charEncoder>
-                                                         <!--delete the jtl files after parser-->
+                             <!--delete the jtl files after parser-->
 							<removeJTLAfterHandler>false</removeJTLAfterHandler>
 							<configurationCharts>
 								<width>950</width>
