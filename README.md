@@ -1,10 +1,11 @@
 # jmeter-analysisReport-maven-plugin
-# the plugin only for parser jmeter results and generate html reporters
 
-while using the plugin in a maven project,please set the pom.xml as follows:
+the plugin only for parser jmeter results and generate html reporters
+
+while using the plugin in a maven project,please set the pom.xml like this:
 
 <!--first:generate the maven buildtime-->
-<!--
+
 			<plugin>
 			
 				<groupId>org.codehaus.mojo</groupId>
@@ -25,10 +26,10 @@ while using the plugin in a maven project,please set the pom.xml as follows:
 					<pattern>yyyyMMddHHmmss</pattern>
 					<timeZone>GMT+8</timeZone>
 				</configuration>
-			</plugin>-->
+			</plugin>
 			
 <!--second:run jmeter scripts-->			
- <!--
+
      			<plugin>
 				<configuration>
 					<testFilesDirectory>./src/test/jmeter/</testFilesDirectory>
@@ -51,7 +52,7 @@ while using the plugin in a maven project,please set the pom.xml as follows:
 						</goals>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 
 
 <!--third:parser jmeter results and generate html reporters-->
