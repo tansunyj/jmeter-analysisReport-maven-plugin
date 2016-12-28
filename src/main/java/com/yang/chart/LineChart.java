@@ -256,7 +256,8 @@ public class LineChart implements DrawPNGCallBack{
 		List<String> l=new ArrayList<String>();
 		int size=li.size();
 		for(int i=0;i<size;i+=configure.getCHART_PIXEX_LIMIT()){
-			l.add(li.get(i).getStart().substring(8, 14));
+		//	l.add(li.get(i).getStart().substring(8, 14));
+			l.add(li.get(i).getStart());
 		}
 		
 		runTime=l.toArray(runTime);
@@ -305,22 +306,31 @@ public class LineChart implements DrawPNGCallBack{
 
 			String samplerName = ad.getSamplerName();
 			List<AggregateResult> arlist = ad.getList();
-			int size = arlist.size()/step;
+			int t=arlist.size();
+			
+			List<Object> tpsList=new ArrayList<Object>();
+			List<Object> rtList=new ArrayList<Object>();
+			List<Object> threadsList=new ArrayList<Object>();
+			List<Object> trafficList=new ArrayList<Object>();
+
+			for(int i=0;i<t;i+=step){
+				tpsList.add(arlist.get(i).getThroughput());
+				rtList.add(arlist.get(i).getAverage());
+				threadsList.add(arlist.get(i).getThreads());
+				trafficList.add(arlist.get(i).getNetWorkTraffic());
+			}
+
+			int size=tpsList.size();
 			Object[] tpsArray = new Object[size];
 			Object[] rtArray = new Object[size];
 			Object[] threadsArray = new Object[size];
 			Object[] trafficArray = new Object[size];
 			
-			int t=arlist.size();
-			int count=0;
-			for(int i=0;i<t;i+=step){
-				tpsArray[count] = arlist.get(i).getThroughput();
-				rtArray[count]=arlist.get(i).getAverage();
-				threadsArray[count]=arlist.get(i).getThreads();
-				trafficArray[count]=arlist.get(i).getNetWorkTraffic();
-				count++;
-			}
-
+			tpsArray=tpsList.toArray(tpsArray);
+			rtArray=rtList.toArray(rtArray);
+			threadsArray=threadsList.toArray(threadsArray);
+			trafficArray=trafficList.toArray(trafficArray);
+			
 			tps.add(new Serie(samplerName, tpsArray));
 			rt.add(new Serie(samplerName,rtArray));
 			threads.add(new Serie(samplerName, threadsArray));
