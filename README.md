@@ -1,6 +1,6 @@
 # jmeter-analysisReport-maven-plugin
 
-the plugin only for parser jmeter results and generate html reporters
+the plugin parser jmeter XML results and generate html reporters only
 
 while using the plugin in a maven project,please set the pom.xml like this:
 
