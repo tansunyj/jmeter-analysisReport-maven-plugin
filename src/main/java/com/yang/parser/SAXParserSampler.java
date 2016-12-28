@@ -66,6 +66,7 @@ public class SAXParserSampler {
 	private class JTLParser extends DefaultHandler{
 		private List<Sampler> list;
 		private Sampler sampler;
+		private String prefix="";
 		
 	    public List<Sampler> getList() {
 			return list;
@@ -80,6 +81,7 @@ public class SAXParserSampler {
 	    public void startElement(String u, String localName, String qName, Attributes attributes) throws SAXException {
 	    	
 	    	if(!configure.getIgnoreSamplerNames().contains(qName)&&attributes.getLength()>1){
+	    		prefix=qName;
 	    		sampler=new Sampler();
 	        	sampler.setBy(Integer.valueOf(attributes.getValue("by")));
 	        	sampler.setDt(attributes.getValue("dt"));
@@ -97,8 +99,9 @@ public class SAXParserSampler {
 		
 		@Override
 		public void endElement(String u, String localName, String qName){
-			if(sampler!=null){
+			if(prefix.equals(qName)){
 				list.add(sampler);
+				prefix="";
 			}
 		}
 	}
