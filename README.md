@@ -2,7 +2,13 @@
 
 the plugin parser jmeter XML results and generate html reporters only
 
-while using the plugin in a maven project,please set the pom.xml like this:
+while using the plugin in a maven project,please install like this:
+1.downLoad the plugin;
+2.maven install the plugin in the eclipse;
+3.execute the sql scripts "~/src/main/resources/sql/mysql.sql" on the database(eg:mysql);
+4.unzip the rar file "~/samplers/zhaoSheBeiAPI.rar" or create a new maven project like this;
+5.set the maven project's pom.xml like this:
+
 
 <!--first:generate the maven buildtime-->
 
