@@ -43,7 +43,7 @@ public final class Calculate {
 			throws DocumentException {
 
 		fileName = file.getName().replace(postFix, "");
-		fileName = fileName.substring(fileName.lastIndexOf(seperator) + 1,fileName.length());
+	//	fileName = fileName.substring(fileName.lastIndexOf(seperator) + 1,fileName.length());
 		list=parser(file);
 	//	return calculate(statistics(Dom4jParserSampler.parser(file)));
 		return calculate(statistics(list));

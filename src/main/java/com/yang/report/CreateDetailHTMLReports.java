@@ -31,6 +31,7 @@ import com.yang.util.HTMLReporterUtil;
 public class CreateDetailHTMLReports{
 
 	public void handler(List<Object> total,Map<String, String> detail,File f) {
+		
 		Configure configure = Configure.getConfigure();
 		String postFix = configure.getJmeterResultPostFix();
 		String htmlReportPath = configure.getHtmlReportOutputPath();
@@ -43,7 +44,6 @@ public class CreateDetailHTMLReports{
 		
 		String name = f.getName().replace(postFix, "");
 		String detailsHtml = htmlReportPath + Configure.FILE_SEPARATOR+ buildTime + Configure.FILE_SEPARATOR + name + ".html";
-
 		detailsHtml = detailsHtml.replace("/\\", "/").replace("\\", "/");
 
 		logger.info("startting to parser...." + name);
@@ -70,7 +70,7 @@ public class CreateDetailHTMLReports{
 		
 		logger.info("startting to fetch data to for png....");
 		// 产生详情页
-		List<AggregeteResultHistory> list2 = dao.fetchDataForPNG(name, count);
+		List<AggregeteResultHistory> list2 = dao.fetchDataForPNG(list,name, count);
 	
 		Map<String, Object> detailsMap = new HashMap<String, Object>();
 		// 生成图片
@@ -82,7 +82,7 @@ public class CreateDetailHTMLReports{
 
 		logger.info("startting to fetch data for details....");
 		// 查询构建历史
-		List<AggregeteResultHistory> list3 = dao.fetchDataForList(name, count);
+		List<AggregeteResultHistory> list3 = dao.fetchDataForList(list,name, count);
 		detailsMap.put("dataList", list3);
 		detailsMap.put("scriptName", f.getName());
 	

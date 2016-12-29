@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.yang.configration.Configure;
 import com.yang.pojo.AggregateResult;
@@ -28,13 +30,14 @@ import com.yang.pojo.Jdbc;
 public class AggregateDao {
 
 	private Connection conn = null;
+	private PreparedStatement pstmt;
 	private ResultSet rs = null;
 	private boolean status = false;
 	private Configure configure = Configure.getConfigure();
 	private String buildTime = configure.getBuildTime();
 	private String projectName = configure.getProjectName();
 	private Jdbc jdbc = configure.getJdbc();
-
+	
 	private void initial() {
 
 		try {
@@ -97,13 +100,13 @@ public class AggregateDao {
 			e.printStackTrace();
 		}
 
-		free(pstmt);
+		free();
 	}
 
-	public List<AggregeteResultHistory> fetchDataForPNG(String fileName, int count) {
+	public List<AggregeteResultHistory> fetchDataForPNG(List<AggregateResult> arlist,String fileName, int count) {
 		List<AggregeteResultHistory> list = new ArrayList<AggregeteResultHistory>();
 
-		List<String> samplerNames = fetch(fileName);
+		Set<String> samplerNames = getSamplerNames(arlist);
 
 		for (String samplerName : samplerNames) {
 			AggregeteResultHistory ad = new AggregeteResultHistory();
@@ -116,10 +119,10 @@ public class AggregateDao {
 		return list;
 	}
 
-	public List<AggregeteResultHistory> fetchDataForList(String fileName, int count) {
+	public List<AggregeteResultHistory> fetchDataForList(List<AggregateResult> arlist,String fileName, int count) {
 
 		List<AggregeteResultHistory> list = new ArrayList<AggregeteResultHistory>();
-		List<String> samplerNames = fetch(fileName);
+		Set<String> samplerNames = getSamplerNames(arlist);
 
 		count = samplerNames.size() * count;
 
@@ -245,7 +248,8 @@ public class AggregateDao {
 		return list;
 	}
 
-	private void free(PreparedStatement pstmt) {
+	private void free() {
+
 		if (!status)
 			return;
 
@@ -275,5 +279,14 @@ public class AggregateDao {
 			}
 
 		status = false;
+	}
+	
+	private Set<String> getSamplerNames(List<AggregateResult> arlist){
+		Set<String> set=new HashSet<String>();
+		for(AggregateResult ar:arlist){
+			set.add(ar.getLabel());
+		}
+		
+		return set;
 	}
 }
